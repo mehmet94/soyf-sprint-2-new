@@ -27,6 +27,8 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private TextView textView2;
+    private TextView textView3;//Distance
+    private TextView textView4;//Calorie
     private ShareButton fbShare;
 
     SharedPreferences.Editor editor;
@@ -97,6 +99,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        //function to determine the distance run in kilometers using average step length for men and number of steps
+        public float getDistanceRun(long steps){
+            float distance = (float)(steps*78)/(float)100000;
+            return distance;
+        }
+        */
 
         int total = settings.getInt("totalSteps", 0);
         int daily = settings.getInt("totalSteps", 0);
@@ -110,6 +119,20 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         fbShare.setShareContent(content);
 
+        //Distance in Kilometers
+        textView3 = (TextView) findViewById(R.id.textView3);
+        if(gender=="male"){
+            float distance = (float)((daily)*(height*0.415))/(float)100000; //measurements have to be in cm
+            textView3.setText("Daily Distance: " + distance);
+        }else if(gender=="female"){
+            float distance = (float)((daily)*(height*0.413))/(float)100000; //measurements have to be in cm
+            textView3.setText("Daily Distance: " + distance);
+        }
+        textView4 = (TextView) findViewById(R.id.textView4);
+        double caloriesBurnedPerMile = weight * 0.57;
+        double conversionFactor = caloriesBurnedPerMile / 2200; //2200 is the amount of steps that has been assumed to take in a mile
+        double caloriesBurned = daily * conversionFactor; // amount of calories burned with the number of steps has been taken in daily pedometer
+        textView4.setText("Burned Calories: " + caloriesBurned);
 
         textView2 = (TextView) findViewById(R.id.textView2);
         if(fromLogin.getBooleanExtra("registration",false))
@@ -139,5 +162,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+
+
+
+
+
 }
 
