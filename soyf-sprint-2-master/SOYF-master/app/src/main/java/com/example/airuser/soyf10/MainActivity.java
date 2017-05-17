@@ -121,13 +121,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Distance in Kilometers
         textView3 = (TextView) findViewById(R.id.textView3);
-        if(gender=="male"){
-            float distance = (float)((daily)*(height*0.415))/(float)100000; //measurements have to be in cm
-            textView3.setText("Daily Distance: " + distance);
-        }else if(gender=="female"){
-            float distance = (float)((daily)*(height*0.413))/(float)100000; //measurements have to be in cm
-            textView3.setText("Daily Distance: " + distance);
-        }
+        float distance = (float)((daily)*(height*0.414))/(float)100000; //measurements have to be in cm
+        textView3.setText("Daily Distance: " + distance);
+
         textView4 = (TextView) findViewById(R.id.textView4);
         double caloriesBurnedPerMile = weight * 0.57;
         double conversionFactor = caloriesBurnedPerMile / 2200; //2200 is the amount of steps that has been assumed to take in a mile
